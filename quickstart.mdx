@@ -1,0 +1,135 @@
+---
+title: Quickstart Guide
+description: Get started with Asurad Documentation in minutes by setting up your first project and publishing your initial docs.
+---
+
+## Overview
+
+Set up Asurad Documentation quickly to host your project's documentation. Follow these steps to create an account, build your first project, and publish live docs. You complete the process in under 10 minutes.
+
+<Callout kind="tip">
+  Use the Asurad CLI for the fastest workflow. It handles authentication, project creation, and publishing seamlessly.
+</Callout>
+
+## Create an Account
+
+Start by signing up for a free Asurad account.
+
+<Steps>
+  <Step title="Visit the Dashboard" icon="globe">
+    Open your browser and navigate to [https://app.asurad.com](https://app.asurad.com).
+  </Step>
+  <Step title="Sign Up" icon="user-plus">
+    Click **Sign Up** and enter your email, name, and password. Verify your email via the confirmation link.
+  </Step>
+  <Step title="Log In" icon="log-in">
+    Return to the dashboard and log in with your credentials. You land on the projects overview page.
+  </Step>
+</Steps>
+
+## Install the CLI
+
+Install the Asurad CLI to manage projects from your terminal.
+
+<Tabs>
+  <Tab title="npm" icon="package">
+    ```bash
+    npm install -g @asurad/cli
+    ```
+  </Tab>
+  <Tab title="yarn" icon="package">
+    ```bash
+    yarn global add @asurad/cli
+    ```
+  </Tab>
+  <Tab title="pnpm" icon="package">
+    ```bash
+    pnpm add -g @asurad/cli
+    ```
+  </Tab>
+</Tabs>
+
+Verify installation:
+
+```bash
+asurad --version
+```
+
+## Create Your First Project
+
+Initialize a new documentation project.
+
+<Steps>
+  <Step title="Log In via CLI" icon="log-in">
+    Run the login command and authorize with your account:
+
+    ```bash
+    asurad login
+    ```
+
+    Follow the browser prompt to complete authentication.
+  </Step>
+  <Step title="Initialize Project" icon="plus">
+    Create a new project directory:
+
+    ```bash
+    mkdir my-docs && cd my-docs
+    asurad init
+    ```
+
+    Select options like project name (`my-docs`) and default theme.
+  </Step>
+  <Step title="Add Content" icon="file-text">
+    Edit `pages/index.mdx` to add your homepage content. For example:
+
+    ```mdx
+    # Welcome to My Docs
+
+    Get started with your custom documentation.
+    ```
+  </Step>
+</Steps>
+
+## Publish Your Docs
+
+Deploy your project to a live URL.
+
+<CodeGroup tabs="CLI,Dashboard">
+  ```bash
+  # From project root
+  asurad publish
+  ```
+  ```bash
+  # Advanced: Custom domain
+  echo "YOUR_CUSTOM_DOMAIN.com" > .asuradrc
+  asurad publish
+  ```
+</CodeGroup>
+
+Your docs go live at `https://my-docs.asurad.app`. Check the CLI output for the exact URL.
+
+<Callout kind="success">
+  Publishing succeeds on the first try with default settings. Custom domains require DNS setup.
+</Callout>
+
+## Next Steps
+
+Explore more features to enhance your docs.
+
+<Columns cols={3}>
+  <Card title="Customize Themes" icon="palette" href="/docs/themes">
+    Apply brand colors like `#3B82F6` and custom layouts.
+  </Card>
+  <Card title="API Reference" icon="code" href="/docs/api">
+    Document endpoints with interactive examples.
+  </Card>
+  <Card title="Advanced Workflows" icon="settings" href="/docs/workflows">
+    Set up CI/CD and versioned docs.
+  </Card>
+</Columns>
+
+<Expandable title="Troubleshooting Common Issues" default-open="false">
+  - **CLI login fails?** Clear cache: `asurad logout && asurad login`.
+  - **Publish errors?** Ensure `YOUR_API_KEY` is set in `.env`: `ASURAD_API_KEY=YOUR_API_KEY`.
+  - **Build timeouts?** Increase Node memory: `node --max-old-space-size=4096 node_modules/.bin/asurad publish`.
+</Expandable>

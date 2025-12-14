@@ -1,0 +1,144 @@
+---
+title: Changelog
+description: Track updates, new features, and improvements in Asurad Documentation across versions.
+---
+
+## Overview
+
+Stay current with Asurad Documentation releases. You access the latest features, bug fixes, and improvements through these updates. Review breaking changes before upgrading to avoid disruptions.
+
+## Recent Releases
+
+<Update label="2024-10-15" description="v1.2.0" tags={["feature", "bugfix"]}>
+
+## New Features
+
+- Added real-time collaboration for shared documentation editing
+- Introduced customizable themes with your brand color `{`#3B82F6`}` support
+
+## Improvements
+
+- Enhanced search performance by `{>300%}` for large doc sites
+- Optimized image loading for faster page renders
+
+## Bug Fixes
+
+- Fixed rendering issues with nested `<CodeGroup>` components
+- Resolved mobile navigation glitches on touch devices
+
+</Update>
+
+<Update label="2024-09-20" description="v1.1.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Integrated `<Tabs>` component for platform-specific instructions
+- Added `<ParamField>` and `<ResponseField>` for API documentation
+
+## Improvements
+
+- Better syntax highlighting for `{30+}` languages in code blocks
+- Streamlined frontmatter parsing with stricter YAML validation
+
+## Breaking Changes
+
+- Updated Mermaid diagrams to require code block syntax only (no `<Mermaid>` component)
+
+</Update>
+
+<Update label="2024-08-10" description="v1.0.0" tags={["feature", "breaking"]}>
+
+## New Features
+
+- Core MDX components including `<Steps>`, `<Columns>`, and `<Callout>`
+- Full support for Lucide icons in all interactive elements
+
+## Initial Setup
+
+Run this to initialize your docs:
+
+<CodeGroup tabs="npm,yarn">
+```bash
+npm init asurad-docs my-site
+```
+```bash
+yarn create asurad-docs my-site
+```
+</CodeGroup>
+
+</Update>
+
+## Upcoming Features
+
+Explore what's next for Asurad Documentation. You benefit from these enhancements in future releases.
+
+<Columns cols={3}>
+  <Card title="AI-Powered Search" icon="search" href="#">
+    Semantic search understands your queries beyond keywords.
+  </Card>
+  <Card title="Versioned Docs" icon="git-branch" href="#">
+    Maintain multiple doc versions simultaneously.
+  </Card>
+  <Card title="Analytics Dashboard" icon="bar-chart-3" href="#">
+    Track reader engagement and popular sections.
+  </Card>
+</Columns>
+
+<Callout kind="info">
+  Subscribe to the RSS feed at `/rss.xml` to receive instant notifications on new releases.
+</Callout>
+
+## Migration Guide
+
+Follow these steps to upgrade smoothly, especially if you encounter breaking changes.
+
+<Steps>
+  <Step title="Backup Your Site" icon="database">
+    Create a full backup:
+
+    ```bash
+    git clone your-repo backup-asurad-v1.1
+    ```
+  </Step>
+  <Step title="Update Dependencies" icon="package">
+    <Tabs>
+      <Tab title="npm" icon="npm">
+        ```bash
+        npm update asurad-docs@latest
+        ```
+      </Tab>
+      <Tab title="yarn" icon="yarn">
+        ```bash
+        yarn upgrade asurad-docs@latest
+        ```
+      </Tab>
+    </Tabs>
+  </Step>
+  <Step title="Test Components" icon="test-tube">
+    Verify key components like `<Update>` and Mermaid diagrams:
+
+    ```mermaid
+    graph TD
+        A[Current Version] --> B[Upgrade]
+        B --> C[New Features]
+        C --> D[Production]
+    ```
+  </Step>
+  <Step title="Deploy" icon="rocket">
+    Push changes and monitor for issues.
+  </Step>
+</Steps>
+
+<Expandable title="Detailed Breaking Changes" default-open="false">
+
+### v1.1.0 Changes
+
+- Remove all `<Mermaid>` JSX tags; use code blocks instead
+- `{API_KEY}` now requires backtick escaping in prose: `` `API_KEY` ``
+
+| Change | Impact | Fix |
+|--------|--------|-----|
+| No `<Mermaid>` component | Parsing errors | Use ```` ```mermaid ```` blocks |
+| Stricter frontmatter | YAML failures | No blank lines inside `---` |
+
+</Expandable>

@@ -1,0 +1,136 @@
+---
+title: Introduction to Asurad Documentation
+description: Discover Asurad Documentation, a comprehensive platform for creating, managing, and publishing technical documentation with ease.
+---
+
+## Overview
+
+Asurad Documentation empowers you to build stunning, interactive technical docs with MDX and modern components. You create pages that engage developers and users through rich visuals, code examples, and guided workflows. This platform handles rendering, hosting, and SEO so you focus on content.
+
+<Columns cols={3}>
+  <Card title="MDX Powered" icon="code" href="/docs/mdx-guide">
+    Write in familiar Markdown with JSX components for tabs, steps, and more.
+  </Card>
+  <Card title="Visual Components" icon="layout" href="/docs/components">
+    Use pre-built elements like Cards, Steps, and Callouts for polished docs.
+  </Card>
+  <Card title="Fast Deployment" icon="rocket" href="/docs/deploy">
+    Publish changes instantly with Git-based workflows and CDN delivery.
+  </Card>
+</Columns>
+
+## Key Benefits and Features
+
+You gain speed, flexibility, and scalability. Key benefits include intuitive editing, automatic syntax highlighting, and responsive design across devices.
+
+<Callout kind="tip">
+  Start small and scale: Asurad supports single-page sites up to enterprise knowledge bases with thousands of docs.
+</Callout>
+
+### Quick Start
+
+Follow these steps to launch your first doc site.
+
+<Steps>
+  <Step title="Initialize Project" icon="download">
+    Create a new repository and add your first MDX file.
+
+````bash
+npx create-asurad@latest my-docs-site
+cd my-docs-site
+npm install
+````
+
+  </Step>
+  <Step title="Add Content" icon="edit-3">
+    Write MDX pages with frontmatter and components.
+
+    ```javascript
+    // pages/introduction.mdx
+    ---
+    title: "Welcome"
+    ---
+    
+    ## Hello World
+    Your docs start here.
+    ```
+
+  </Step>
+  <Step title="Preview Locally" icon="play">
+    Run the dev server.
+
+````bash
+npm run dev
+````
+
+    Open `http://localhost:3000` to see live previews.
+  </Step>
+  <Step title="Deploy" icon="upload-cloud">
+    Push to GitHub for automatic deployment.
+
+````bash
+git add .
+git commit -m "Initial docs"
+git push origin main
+````
+
+  </Step>
+</Steps>
+
+## Integration Examples
+
+Embed Asurad components in your apps or embed docs in sites.
+
+<CodeGroup tabs="React,Node.js">
+  ```tsx
+  // React app integration
+  import { Callout } from '@asurad/docs-ui';
+  
+  function DocsEmbed() {
+    return (
+      <Callout kind="info">
+        Embedded docs component.
+      </Callout>
+    );
+  }
+  ```
+  ```javascript
+  // Node.js server-side rendering
+  const asurad = require('@asurad/docs');
+  
+  app.get('/docs/:page', async (req, res) => {
+    const html = await asurad.render(req.params.page);
+    res.send(html);
+  });
+  ```
+</CodeGroup>
+
+## Target Audience and Use Cases
+
+Asurad serves developers, product teams, and open-source maintainers.
+
+<Tabs>
+  <Tab title="Developers" icon="code">
+    Build API references with `<ParamField>` and `<Request>` components. Automate SDK docs from OpenAPI specs.
+  </Tab>
+  <Tab title="Product Teams" icon="users">
+    Create user guides with Steps and Videos. Track engagement with built-in analytics.
+  </Tab>
+  <Tab title="Open Source" icon="github">
+    Host free docs sites with custom domains. Integrate with GitHub Actions for CI/CD.
+  </Tab>
+</Tabs>
+
+<Expandable title="Advanced Use Cases" default-open="false">
+
+| Use Case | Audience | Key Components |
+|----------|----------|----------------|
+| API Docs | Engineers | `<Request>`, `<ResponseField>` |
+| Tutorials | Learners | `<Steps>`, `<Tabs>` |
+| Changelogs | Users | `<Update>` |
+
+Explore enterprise features like SSO and custom branding for teams.
+
+</Expandable>
+
+You now understand how Asurad Documentation simplifies technical writing. Dive into specific guides next.

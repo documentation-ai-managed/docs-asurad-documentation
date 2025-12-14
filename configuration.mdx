@@ -1,0 +1,172 @@
+---
+title: Configuration Options
+description: Learn how to customize your documentation site through various configuration settings and themes.
+---
+
+## Overview
+
+Customize your Asurad Documentation site by editing configuration files in your project root. You control project metadata, themes, and integrations like SEO and analytics through simple settings. Start with the main config file and extend as needed for advanced features.
+
+<Columns cols={3}>
+  <Card title="Project Settings" icon="settings" href="#project-settings">
+    Define site title, description, and metadata.
+  </Card>
+  <Card title="Themes" icon="palette" href="#themes">
+    Apply colors, fonts, and layouts.
+  </Card>
+  <Card title="SEO & Analytics" icon="trending-up" href="#seo-analytics">
+    Optimize for search engines and track usage.
+  </Card>
+</Columns>
+
+## Project Settings and Metadata
+
+Configure basic site information in `next.config.js` or a dedicated `site.config.js`. Set your site title, description, and base URL to ensure proper rendering across pages.
+
+<CodeGroup tabs="JavaScript,YAML">
+  ```javascript
+  // next.config.js
+  const config = {
+    title: 'Asurad Documentation',
+    description: 'Comprehensive guides for Asurad features.',
+    baseUrl: 'https://docs.asurad.com',
+    author: 'Asurad Team',
+    language: 'en'
+  };
+
+  module.exports = {
+    // other Next.js config
+    env: config
+  };
+  ```
+  ```yaml
+  # site.config.yaml
+  title: Asurad Documentation
+  description: Comprehensive guides for Asurad features.
+  baseUrl: https://docs.asurad.com
+  author: Asurad Team
+  language: en
+  ```
+</CodeGroup>
+
+Use these settings to populate metadata across your docs.
+
+| Setting     | Type    | Required | Description                          |
+|-------------|---------|----------|--------------------------------------|
+| `title`     | string  | Yes      | Site title for browser tab and SEO. |
+| `description` | string | Yes    | Short site summary.                  |
+| `baseUrl`   | string  | No       | Full domain for absolute links.      |
+| `author`    | string  | No       | Creator or team name.                |
+
+<Callout kind="tip">
+  Back up your config files before major changes to avoid deployment issues.
+</Callout>
+
+## Theme and Styling Options
+
+Tailor your site's appearance with theme settings. Choose from predefined themes or customize colors matching your brand, like `#3B82F6` for primary blue.
+
+<Tabs>
+  <Tab title="Default Theme" icon="sun">
+    Apply the light theme with standard colors.
+
+    ```javascript
+    // theme.config.js
+    export default {
+      theme: 'default',
+      primaryColor: '#3B82F6',
+      font: 'Inter',
+      darkMode: false
+    };
+    ```
+  </Tab>
+  <Tab title="Dark Theme" icon="moon">
+    Switch to dark mode for better low-light viewing.
+
+    ```javascript
+    // theme.config.js
+    export default {
+      theme: 'dark',
+      primaryColor: '#3B82F6',
+      font: 'Inter',
+      darkMode: true
+    };
+    ```
+  </Tab>
+  <Tab title="Custom CSS" icon="code">
+    Override styles with custom CSS variables.
+
+    ```css
+    /* globals.css */
+    :root {
+      --primary: #3B82F6;
+      --background: #ffffff;
+    }
+
+    .dark {
+      --background: #0a0a0a;
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## SEO and Analytics Integration
+
+Boost visibility and insights by adding SEO tags and analytics scripts. Follow these steps to integrate Google Analytics and Open Graph metadata.
+
+<Steps>
+  <Step title="Add SEO Metadata" icon="search">
+    Update your config with Open Graph and Twitter cards.
+
+    ```javascript
+    // next.config.js
+    const seo = {
+      openGraph: {
+        title: 'Asurad Documentation',
+        description: 'TEst site for Asurad.',
+        images: ['/og-image.png']
+      },
+      twitter: {
+        card: 'summary_large_image'
+      }
+    };
+    ```
+  </Step>
+  <Step title="Integrate Analytics" icon="bar-chart">
+    Add your tracking ID to enable page views and events.
+
+    ```javascript
+    // analytics.config.js
+    export default {
+      google: {
+        trackingId: 'G-YOUR_TRACKING_ID'
+      },
+      plausible: {
+        domain: 'docs.asurad.com'
+      }
+    };
+    ```
+  </Step>
+  <Step title="Verify Setup" icon="check-circle">
+    Deploy and check browser console for errors. Use tools like Google Search Console.
+  </Step>
+</Steps>
+
+<Expandable title="Advanced SEO Options" default-open="false">
+  For structured data, add JSON-LD scripts:
+
+  ```json
+  {
+    "@context": "https://schema.org",
+    "@type": "Documentation",
+    "name": "Asurad Documentation",
+    "description": "TEst"
+  }
+  ```
+
+  Place this in your layout component's `<head>`.
+</Expandable>
+
+<Callout kind="alert">
+  Replace `YOUR_TRACKING_ID` with your actual ID from Google Analytics. Never commit real keys to public repos.
+</Callout>

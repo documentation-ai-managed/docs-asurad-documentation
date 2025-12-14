@@ -1,0 +1,177 @@
+---
+title: API Reference
+description: Explore the Asurad Documentation API for programmatic access to manage docs, users, and content.
+---
+
+## Overview
+
+Access the Asurad Documentation API to create, update, and retrieve documentation programmatically. You authenticate requests with an API key and interact with RESTful endpoints over HTTPS. All responses use JSON format.
+
+<Columns cols={3}>
+  <Card title="Documents" icon="book-open" href="#documents">
+    Manage doc collections and pages.
+  </Card>
+  <Card title="Users" icon="users" href="#users">
+    Handle user accounts and permissions.
+  </Card>
+  <Card title="Content" icon="edit-3" href="#content">
+    Update doc content and metadata.
+  </Card>
+</Columns>
+
+## Authentication
+
+Generate an API key from your Asurad dashboard. Include it in the `Authorization` header as a Bearer token for all requests.
+
+<Steps>
+  <Step title="Generate Key" icon="key">
+    Log in to your Asurad account and navigate to **Settings > API Keys**.
+  </Step>
+  <Step title="Set Header" icon="settings">
+    Add the header to your requests:
+
+    ```bash
+    Authorization: Bearer YOUR_API_KEY
+    ```
+  </Step>
+  <Step title="Test Connection" icon="check-circle">
+    Send a GET request to `/v1/health` to verify setup.
+  </Step>
+</Steps>
+
+<Callout kind="tip">
+  Store your `YOUR_API_KEY` securely. Rotate keys regularly for security.
+</Callout>
+
+<Request tabs="cURL,JavaScript" show-lines="true">
+  ```bash
+  curl -X GET https://api.asurad.com/v1/health \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -H "Content-Type: application/json"
+  ```
+  ```javascript
+  const response = await fetch('https://api.asurad.com/v1/health', {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json',
+    },
+  });
+  const data = await response.json();
+  ```
+</Request>
+
+<Response tabs="200">
+  ```json
+  {
+    "status": "healthy",
+    "version": "1.0.0",
+    "timestamp": "2024-10-15T12:00:00Z"
+  }
+  ```
+</Response>
+
+## Core Endpoints
+
+### Documents
+
+List and manage your documentation pages.
+
+<ParamField path="docId" param-type="string" required="true">
+  Unique document identifier.
+</ParamField>
+
+<ParamField query="limit" param-type="integer" required="false">
+  Number of results to return (default: `10`, max: `100`).
+</ParamField>
+
+<Request tabs="cURL,Python">
+  ```bash
+  curl -X GET 'https://api.asurad.com/v1/docs?limit=5' \
+    -H "Authorization: Bearer YOUR_API_KEY"
+  ```
+  ```python
+  import requests
+  response = requests.get(
+      'https://api.asurad.com/v1/docs?limit=5',
+      headers={'Authorization': 'Bearer YOUR_API_KEY'}
+  )
+  ```
+</Request>
+
+<Response tabs="200">
+  ```json
+  {
+    "docs": [
+      {
+        "id": "doc_abc123",
+        "title": "Getting Started",
+        "slug": "getting-started",
+        "updatedAt": "2024-10-15T10:30:00Z"
+      }
+    ],
+    "total": 25,
+    "limit": 5
+  }
+  ```
+</Response>
+
+<ResponseField name="docs" field-type="array" required="true">
+  Array of document objects.
+</ResponseField>
+
+<ResponseField name="total" field-type="integer">
+  Total number of documents available.
+</ResponseField>
+
+### Users
+
+Retrieve user details and manage teams.
+
+<CodeGroup tabs="JavaScript,Python">
+  ```javascript
+  const users = await fetch('https://api.asurad.com/v1/users', {
+    headers: { 'Authorization': 'Bearer YOUR_API_KEY' }
+  }).then(res => res.json());
+  ```
+  ```python
+  response = requests.get(
+      'https://api.asurad.com/v1/users',
+      headers={'Authorization': 'Bearer YOUR_API_KEY'}
+  )
+  users = response.json()
+  ```
+</CodeGroup>
+
+## Pagination
+
+All list endpoints support cursor-based pagination for efficient large result sets.
+
+<ParamField query="cursor" param-type="string" required="false">
+  Cursor from previous response for next page.
+</ParamField>
+
+<ParamField query="pageSize" param-type="integer" required="false">
+  Results per page (default: `20`, max: `100`).
+</ParamField>
+
+<ResponseField name="nextCursor" field-type="string">
+  Cursor for fetching the next page.
+</ResponseField>
+
+<ResponseField name="hasMore" field-type="boolean">
+  Indicates additional pages available.
+</ResponseField>
+
+<Callout kind="info">
+  Response times stay `<500ms` for paginated requests with proper indexing.
+</Callout>
+
+<ExpandableGroup>
+  <Expandable title="Rate Limits" default-open="false">
+    You hit 100 requests per minute per API key. Exceeding triggers `429 Too Many Requests`. Implement exponential backoff.
+  </Expandable>
+  <Expandable title="Error Handling">
+    Common errors include `401 Unauthorized` (invalid key) and `404 Not Found` (missing resource). Always check `error.code` and `error.message`.
+  </Expandable>
+</ExpandableGroup>
